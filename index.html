@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELMOUSSAOUI Safae - Ingénieure Télécom & Réseaux</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --dark: #2d3748;
+            --light: #f8f9fa;
+            --text: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Sections */
+        .section {
+            min-height: 100vh;
+            height: 100vh;
+            padding: 100px 0 50px;
+            display: none;
+            overflow-y: auto;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Page d'accueil */
+        #accueil {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #accueil::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.1"><polygon fill="white" points="0,1000 1000,0 1000,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            margin: 0 auto 2rem;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .hero-content .title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 14px 35px;
+            background: white;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin: 0 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        /* Sections générales */
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 3rem;
+            color: var(--dark);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        /* À propos */
+        #apropos {
+            background: white;
+        }
+
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .profile-description {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-description p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .main-skills {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .side-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .skill-category {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .skill-category h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+
+        .skill-category p {
+            margin: 0.3rem 0;
+            font-size: 0.95rem;
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .certification-item {
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        /* Parcours */
+        #parcours {
+            background: var(--light);
+        }
+
+        .timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            background: white;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            width: calc(50% - 40px);
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            margin-left: 0;
+            margin-right: auto;
+        }
+
+        .timeline-item:nth-child(even) {
+            margin-left: auto;
+            margin-right: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            right: -50px;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            left: -50px;
+        }
+
+        /* Expériences */
+        #experiences {
+            background: white;
+        }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .experience-card {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 10px;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--primary);
+        }
+
+        .experience-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .experience-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-card .date {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Projets */
+        #projets {
+            background: var(--light);
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border-top: 4px solid transparent;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--primary);
+        }
+
+        .project-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .project-card .date {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Contact */
+        #contact {
+            background: white;
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background: var(--light);
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-item h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        /* Navigation Arrows */
+        .navigation-arrows {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        .nav-arrow {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .nav-arrow:hover {
+            background: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .about-content {
+                max-height: 75vh;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .main-skills {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                width: calc(100% - 40px);
+                margin-left: 40px !important;
+                margin-right: 0 !important;
+            }
+
+            .timeline-item::before {
+                left: -40px !important;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .cta-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .cta-button {
+                margin: 0;
+            }
+
+            .section {
+                height: auto;
+                min-height: 100vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-content">
+            <div class="logo">ES</div>
+            <ul class="nav-links">
+                <li><a href="#accueil" onclick="showSection('accueil')">Accueil</a></li>
+                <li><a href="#apropos" onclick="showSection('apropos')">À propos</a></li>
+                <li><a href="#parcours" onclick="showSection('parcours')">Parcours</a></li>
+                <li><a href="#experiences" onclick="showSection('experiences')">Expériences</a></li>
+                <li><a href="#projets" onclick="showSection('projets')">Projets</a></li>
+                <li><a href="#contact" onclick="showSection('contact')">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Sections -->
+    <div class="container">
+        <!-- Page d'accueil -->
+        <section id="accueil" class="section active">
+            <div class="hero-content">
+                <div class="profile-image">
+                    <!-- PHOTO AVEC CHEMIN CORRIGÉ -->
+                    <img src="./pic.png" alt="ELMOUSSAOUI Safae">
+                </div>
+                <h1>ELMOUSSAOUI Safae</h1>
+                <p class="title">Future Ingénieure en Télécommunications & Réseaux</p>
+                <p class="subtitle">Spécialisée en Sécurité des Réseaux et Infrastructure Cloud<br>À la recherche d'un stage PFE à partir de février 2026</p>
+                <div class="cta-buttons">
+                    <a href="#apropos" class="cta-button" onclick="showSection('apropos')">
+                        Découvrir mon profil <i class="fas fa-arrow-down"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- À propos -->
+        <section id="apropos" class="section">
+            <h2 class="section-title">À Propos</h2>
+            <div class="about-content">
+                <!-- Description du profil -->
+                <div class="profile-description">
+                    <p>Étudiante en ingénierie Télécom & Réseaux, passionnée par la sécurité informatique, l'analyse réseau et l'innovation technologique. Curieuse, rigoureuse et avide d'apprendre, je souhaite mettre mes compétences au service d'entreprises innovantes dans le domaine des télécommunications et de la sécurité des systèmes d'information.</p>
+                    <p><strong>À la recherche d'un stage PFE à partir de février 2026</strong></p>
+                </div>
+
+                <!-- Grille des compétences et informations -->
+                <div class="skills-grid">
+                    <!-- Compétences principales -->
+                    <div class="main-skills">
+                        <div class="skill-category">
+                            <h3><i class="fas fa-network-wired"></i> Réseaux & Télécom</h3>
+                            <p>Routage, Switching, VLANs, DHCP, DNS, MPLS, SD-WAN, Firewall, SDN</p>
+                        </div>
+                        <div class="skill-category">
+                            <h3><i class="fas fa-shield-alt"></i> Cybersécurité</h3>
+                            <p>Sécurité des réseaux, chiffrement, gestion des vulnérabilités, détection d'anomalies</p>
+                        </div>
+                        <div class="skill-category">
+                            <h3><i class="fas fa-chart-line"></i> Supervision</h3>
+                            <p>Grafana, Prometheus, Telegraf, Wireshark, Mininet, Ryu</p>
+                        </div>
+                        <div class="skill-category">
+                            <h3><i class="fas fa-code"></i> Programmation</h3>
+                            <p>Python, Bash, Java, C/C++, Scripts de configuration</p>
+                        </div>
+                    </div>
+
+                    <!-- Informations latérales -->
+                    <div class="side-info">
+                        <!-- Certifications -->
+                        <div class="skill-category">
+                            <h3><i class="fas fa-certificate"></i> Certifications</h3>
+                            <div class="certifications-grid">
+                                <div class="certification-item">
+                                    <h4>CCNA</h4>
+                                    <p>Cisco Networking Academy</p>
+                                </div>
+                                <div class="certification-item">
+                                    <h4>Cybersécurité</h4>
+                                    <p>Cisco Networking Academy</p>
+                                </div>
+                                <div class="certification-item">
+                                    <h4>Cryptographie</h4>
+                                    <p>Microsoft</p>
+                                </div>
+                                <div class="certification-item">
+                                    <h4>Administration Linux</h4>
+                                    <p>Alison</p>
+                                </div>
+                                <div class="certification-item">
+                                    <h4>HSE</h4>
+                                    <p>OCP</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Langues -->
+                        <div class="skill-category">
+                            <h3><i class="fas fa-language"></i> Langues</h3>
+                            <p><strong>Français:</strong> Courant</p>
+                            <p><strong>Anglais:</strong> Technique</p>
+                            <p><strong>Arabe:</strong> Langue maternelle</p>
+                        </div>
+
+                        <!-- Qualités -->
+                        <div class="skill-category">
+                            <h3><i class="fas fa-star"></i> Qualités</h3>
+                            <p>Esprit d'équipe, Autonomie, Proactivité, Rigueur analytique, Curiosité technique</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Boutons de navigation -->
+            <div style="text-align: center; margin-top: 2rem;">
+                <button class="cta-button" onclick="showSection('parcours')">
+                    Voir mon parcours <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Parcours -->
+        <section id="parcours" class="section">
+            <h2 class="section-title">Mon Parcours</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Cycle Ingénieur - Télécommunications & Réseaux</h3>
+                    <p><strong>ENSA Safi | 2024-2026</strong></p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Licence Professionnelle - Mécatronique</h3>
+                    <p><strong>EST Safi | 2023-2024</strong></p>
+                </div>
+                <div class="timeline-item">
+                    <h3>DUT - Électronique et Informatique Industrielle</h3>
+                    <p><strong>EST Safi | 2021-2023</strong></p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Baccalauréat - Sciences Physiques</h3>
+                    <p><strong>Lycée Hassan II | 2020-2021</strong></p>
+                </div>
+            </div>
+
+            <!-- Boutons de navigation -->
+            <div style="text-align: center; margin-top: 3rem;">
+                <button class="cta-button secondary" onclick="showSection('apropos')">
+                    <i class="fas fa-arrow-left"></i> Retour
+                </button>
+                <button class="cta-button" onclick="showSection('experiences')" style="margin-left: 1rem;">
+                    Mes expériences <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Expériences -->
+        <section id="experiences" class="section">
+            <h2 class="section-title">Expériences Professionnelles</h2>
+            <div class="experience-grid">
+                <div class="experience-card">
+                    <h3>Stage PFA – GA-TECHNO SARL</h3>
+                    <span class="date">Juillet-Août 2025 (2 mois)</span>
+                    <p>Département Innovation Technologique</p>
+                    <ul style="margin-top: 1rem; list-style: none;">
+                        <li>• Déploiement et supervision d'une architecture SDN pour réseaux IoT sous Linux avec Ryu, Prometheus et Grafana</li>
+                        <li>• Analyse et optimisation des performances réseau, réduisant de 30% le temps d'intervention sur les incidents</li>
+                    </ul>
+                </div>
+                <div class="experience-card">
+                    <h3>Stage PFE – OCP SAFI</h3>
+                    <span class="date">Avril-Mai 2024 (2 mois)</span>
+                    <p>Département Supervision Industrielle</p>
+                    <ul style="margin-top: 1rem; list-style: none;">
+                        <li>• Optimisation d'une chaudière industrielle et amélioration des processus critiques via supervision à distance</li>
+                        <li>• Analyse des communications Modbus/SCADA pour le monitoring temps réel</li>
+                    </ul>
+                </div>
+                <div class="experience-card">
+                    <h3>Stage Technique – OCP, Safi</h3>
+                    <span class="date">Avril 2023 – Juin 2023</span>
+                    <ul style="margin-top: 1rem; list-style: none;">
+                        <li>• Maintenance des infrastructures électriques et réseau industriel</li>
+                        <li>• Analyse des communications via Modbus/SCADA</li>
+                    </ul>
+                </div>
+                <div class="experience-card">
+                    <h3>Stage Observatoire – Marsa Maroc, Safi</h3>
+                    <span class="date">Août 2022 – Septembre 2022</span>
+                    <ul style="margin-top: 1rem; list-style: none;">
+                        <li>• Observation des équipements de communication portuaire</li>
+                        <li>• Introduction aux systèmes de supervision industrielle</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Boutons de navigation -->
+            <div style="text-align: center; margin-top: 3rem;">
+                <button class="cta-button secondary" onclick="showSection('parcours')">
+                    <i class="fas fa-arrow-left"></i> Mon parcours
+                </button>
+                <button class="cta-button" onclick="showSection('projets')" style="margin-left: 1rem;">
+                    Mes projets <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Projets -->
+        <section id="projets" class="section">
+            <h2 class="section-title">Projets Académiques</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3>SECURECHAT - Plateforme de Communication Sécurisée</h3>
+                    <span class="date">Novembre 2025</span>
+                    <p>Développement d'une application de messagerie multi clients/serveur en Java avec implémentation de chiffrement AES pour les messages et échange de clés RSA</p>
+                </div>
+                <div class="project-card">
+                    <h3>SD-WAN Intelligent pour Infrastructures Critiques</h3>
+                    <span class="date">Novembre 2025</span>
+                    <p>Développement d'une infrastructure SD-WAN adaptative avec sélection automatique des liens et optimisation du trafic basée sur la latence, bande passante et coût</p>
+                </div>
+                <div class="project-card">
+                    <h3>Réseau Campus Hautes Performances - Cisco Packet Tracer</h3>
+                    <span class="date">Mai 2025</span>
+                    <p>Conception et modélisation complète d'un réseau campus multi-services avec VLAN, routage inter-VLAN, OSPF, DHCP, VoIP, agrégation de liens et sécurisation réseau avancée</p>
+                </div>
+                <div class="project-card">
+                    <h3>Analyse du Trafic DNS & HTTP – Wireshark</h3>
+                    <span class="date">2025</span>
+                    <p>Capture et inspection de paquets réseau. Initiation à la sécurité réseau et à l'analyse des flux TCP/IP</p>
+                </div>
+                <div class="project-card">
+                    <h3>Simulation Optique sous OptiSystem</h3>
+                    <span class="date">2024</span>
+                    <p>Étude de la propagation du signal dans la fibre optique. Analyse de performance du réseau optique avec multiplexage WDM</p>
+                </div>
+                <div class="project-card">
+                    <h3>Système d'Éclairage à Distance</h3>
+                    <span class="date">2023</span>
+                    <p>Implémentation d'un contrôle à distance via relais et interface Arduino (IoT)</p>
+                </div>
+            </div>
+
+            <!-- Boutons de navigation -->
+            <div style="text-align: center; margin-top: 3rem;">
+                <button class="cta-button secondary" onclick="showSection('experiences')">
+                    <i class="fas fa-arrow-left"></i> Mes expériences
+                </button>
+                <button class="cta-button" onclick="showSection('contact')" style="margin-left: 1rem;">
+                    Me contacter <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="section">
+            <h2 class="section-title">Contact</h2>
+            <div class="contact-content">
+                <p style="font-size: 1.2rem; margin-bottom: 2rem;">N'hésitez pas à me contacter pour discuter d'opportunités de stage de fin d'études à partir de février 2026</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3><i class="fas fa-envelope"></i> Email</h3>
+                        <p>safaeelmoussaoui42@gmail.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3><i class="fas fa-phone"></i> Téléphone</h3>
+                        <p>+212 6 88 93 70 11</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3><i class="fas fa-map-marker-alt"></i> Localisation</h3>
+                        <p>Safi, Maroc</p>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/safae-elmoussaoui-377099283/" target="_blank">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                </div>
+            </div>
+
+            <!-- Boutons de navigation -->
+            <div style="text-align: center; margin-top: 3rem;">
+                <button class="cta-button secondary" onclick="showSection('projets')">
+                    <i class="fas fa-arrow-left"></i> Mes projets
+                </button>
+                <button class="cta-button" onclick="showSection('accueil')" style="margin-left: 1rem;">
+                    Accueil <i class="fas fa-home"></i>
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Flèches de navigation -->
+    <div class="navigation-arrows">
+        <button class="nav-arrow prev" onclick="navigateToPrevSection()">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="nav-arrow next" onclick="navigateToNextSection()">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 ELMOUSSAOUI Safae - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <script>
+        // Ordre des sections
+        const sections = ['accueil', 'apropos', 'parcours', 'experiences', 'projets', 'contact'];
+        
+        function showSection(sectionId) {
+            // Masquer toutes les sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Afficher la section sélectionnée
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Mettre à jour l'URL
+            history.pushState(null, null, `#${sectionId}`);
+        }
+        
+        function getCurrentSectionIndex() {
+            const currentSection = document.querySelector('.section.active');
+            return sections.indexOf(currentSection.id);
+        }
+        
+        function navigateToNextSection() {
+            const currentIndex = getCurrentSectionIndex();
+            if (currentIndex < sections.length - 1) {
+                showSection(sections[currentIndex + 1]);
+            }
+        }
+        
+        function navigateToPrevSection() {
+            const currentIndex = getCurrentSectionIndex();
+            if (currentIndex > 0) {
+                showSection(sections[currentIndex - 1]);
+            }
+        }
+        
+        // Navigation au clavier
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight' || event.key === ' ') {
+                navigateToNextSection();
+            } else if (event.key === 'ArrowLeft') {
+                navigateToPrevSection();
+            }
+        });
+        
+        // Navigation tactile (swipe)
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    navigateToNextSection();
+                } else {
+                    navigateToPrevSection();
+                }
+            }
+        }
+
+        // Afficher la section accueil par défaut
+        document.addEventListener('DOMContentLoaded', function() {
+            // Vérifier si une section est spécifiée dans l'URL
+            const hash = window.location.hash.substring(1);
+            if (hash && sections.includes(hash)) {
+                showSection(hash);
+            } else {
+                showSection('accueil');
+            }
+        });
+    </script>
+</body>
+</html>
